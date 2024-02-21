@@ -26,7 +26,6 @@
         ref="userModal"
         :add-to-cart="addToCart"
         :get-qty="getQty"
-        :qty="qty"
       ></user-modal>
       <!-- {{this.products[2]}} -->
       <div class="container">
@@ -276,7 +275,7 @@
                     <div class="input-group">
                       <input type="number" class="form-control"
                               min="1" v-model="modalQty" @change="getQty(modalQty)">
-                      <button type="button" class="btn btn-primary" @click="addToCart(product.id,qty)">加入購物車{{qty}}</button>
+                      <button type="button" class="btn btn-primary" @click="addToCart(product.id,modalQty)">加入購物車{{modalQty}}</button>
             </div>
             </div>
             </div>
