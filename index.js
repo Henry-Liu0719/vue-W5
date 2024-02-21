@@ -22,7 +22,7 @@ const userModal = {
       this.productModal.hide();
     },
   },
-  props: ["product","addToCart","qty","getQty"],
+  props: ["product","addToCart","getQty"],
   mounted() {
     this.productModal = new bootstrap.Modal(this.$refs.modal);
   },
@@ -43,7 +43,6 @@ const app = createApp({
   },
   methods: {
     getQty(value){
-      console.log('getQty');j
       this.qty = value;
     },
     openModal(product) {
