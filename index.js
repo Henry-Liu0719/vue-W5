@@ -10,7 +10,6 @@ const userModal = {
     return {
       productModal: null,
       modalQty:1,
-      // product:{}
     };
   },
   template: `#userProductModal`,
@@ -21,8 +20,15 @@ const userModal = {
     close() {
       this.productModal.hide();
     },
+    addToCart(productId,value){
+      // console.log('modaladdToCart');
+      // console.log(productId,value);
+      this.$emit('emit-modalQty',productId,value);
+    }
   },
-  props: ["product","addToCart","qty","getQty"],
+  // props: ["product","addToCart","qty","getQty"],
+  // props: ["product","addToCart"],
+  props: ["product"],
   mounted() {
     this.productModal = new bootstrap.Modal(this.$refs.modal);
   },
@@ -42,10 +48,10 @@ const app = createApp({
     userModal,
   },
   methods: {
-    getQty(value){
-      console.log('getQty');j
-      this.qty = value;
-    },
+    // getQty(value){
+    //   console.log('getQty');
+    //   this.qty = value;
+    // },
     openModal(product) {
       this.tempProduct = product;
       this.$refs.userModal.open();
@@ -123,10 +129,10 @@ const app = createApp({
       axios
         .post(`${baseURL}/v2/api/${path}/cart`, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.isLoading = true;
+          this.$refs.userModal.close();
           this.getCart();
-          // this.products = res.data.products;
         })
         .catch((error) => {
           console.dir(error);

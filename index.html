@@ -24,10 +24,15 @@
       <user-modal
         :product="tempProduct"
         ref="userModal"
+        @emit-modal-qty="addToCart"
+      ></user-modal>
+      <!-- <user-modal
+        :product="tempProduct"
+        ref="userModal"
         :add-to-cart="addToCart"
         :get-qty="getQty"
         :qty="qty"
-      ></user-modal>
+      ></user-modal> -->
       <!-- {{this.products[2]}} -->
       <div class="container">
         <div class="mt-4">
@@ -275,8 +280,8 @@
                   <div>
                     <div class="input-group">
                       <input type="number" class="form-control"
-                              min="1" v-model="modalQty" @change="getQty(modalQty)">
-                      <button type="button" class="btn btn-primary" @click="addToCart(product.id,qty)">加入購物車{{qty}}</button>
+                              min="1" v-model="modalQty" >
+                      <button type="button" class="btn btn-primary" @click="addToCart(product.id,modalQty)">加入購物車</button>
             </div>
             </div>
             </div>
