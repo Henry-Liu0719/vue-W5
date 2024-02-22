@@ -26,13 +26,6 @@
         ref="userModal"
         @emit-modal-qty="addToCart"
       ></user-modal>
-      <!-- <user-modal
-        :product="tempProduct"
-        ref="userModal"
-        :add-to-cart="addToCart"
-        :get-qty="getQty"
-        :qty="qty"
-      ></user-modal> -->
       <!-- {{this.products[2]}} -->
       <div class="container">
         <div class="mt-4">
@@ -179,6 +172,8 @@
                 class="form-control"
                 :class="{ 'is-invalid': errors['email'] }"
                 placeholder="請輸入 Email"
+                rules="email|required"
+                v-model="orderData.data.user.email"
               ></v-field>
               <error-message
                 name="email"
@@ -196,6 +191,7 @@
                 :class="{ 'is-invalid': errors['姓名'] }"
                 placeholder="請輸入姓名"
                 rules="required"
+                v-model="orderData.data.user.name"
               ></v-field>
               <error-message
                 name="姓名"
@@ -211,7 +207,9 @@
                 type="text"
                 class="form-control"
                 :class="{ 'is-invalid': errors['電話'] }"
-                placeholder="請輸入電話"
+                placeholder="請輸入手機"
+                :rules="isPhone"
+                v-model="orderData.data.user.tel"
               ></v-field>
               <error-message
                 name="電話"
@@ -229,6 +227,7 @@
                 :class="{ 'is-invalid': errors['地址'] }"
                 placeholder="請輸入地址"
                 rules="required"
+                v-model="orderData.data.user.address"
               ></v-field>
               <error-message
                 name="地址"
@@ -243,10 +242,10 @@
                 class="form-control"
                 cols="30"
                 rows="10"
-              ></textarea>
+              >{{orderData.data.message}}</textarea>
             </div>
             <div class="text-end">
-              <button type="submit" class="btn btn-danger">送出訂單</button>
+              <button type="button" class="btn btn-danger" @click="postOrder" :disabled="carts.carts==''">{{carts.carts==''?'購物車無商品':'送出訂單'}}</button>
             </div>
           </v-form>
         </div>

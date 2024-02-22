@@ -1,4 +1,3 @@
-// import productModal from './ProductModal.js'
 
 const baseURL = "https://vue3-course-api.hexschool.io";
 const path = "gobobofu";
@@ -26,8 +25,6 @@ const userModal = {
       this.$emit('emit-modalQty',productId,value);
     }
   },
-  // props: ["product","addToCart","qty","getQty"],
-  // props: ["product","addToCart"],
   props: ["product"],
   mounted() {
     this.productModal = new bootstrap.Modal(this.$refs.modal);
@@ -41,17 +38,40 @@ const app = createApp({
       tempProduct: {},
       productModal: null,
       isLoading: false,
-      qty:1
+      qty:1,
+      orderData:{
+        "data": {
+          "user": {
+            "name": "test",
+            "email": "test@gmail.com",
+            "tel": "0912346768",
+            "address": "kaohsiung"
+          },
+          "message": "這是留言"
+        }
+      },
     };
   },
   components: {
     userModal,
   },
   methods: {
-    // getQty(value){
-    //   console.log('getQty');
-    //   this.qty = value;
-    // },
+    postOrder(){
+      const data=this.orderData;
+      console.log(data);
+      axios
+        .post(`${baseURL}/v2/api/${path}/order`,data)
+        .then((res) => {
+          console.log(res);
+          alert(res.data.message);
+          // deleteCarts();
+          window.location = '/'
+          // getCart();
+        })
+        .catch((error) => {
+          console.dir(error);
+        });      
+    },
     openModal(product) {
       this.tempProduct = product;
       this.$refs.userModal.open();
@@ -70,7 +90,7 @@ const app = createApp({
         });
     },
     deleteCart(id) {
-      // console.log(id);
+      console.log(id);
       axios
         .delete(`${baseURL}/v2/api/${path}/cart/${id}`)
         .then((res) => {
@@ -150,6 +170,10 @@ const app = createApp({
           console.dir(error);
         });
     },
+    isPhone(value) {
+    const phoneNumber = /^(09)[0-9]{8}$/
+    return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+    }
   },
   mounted() {
     this.getAllProducts();
