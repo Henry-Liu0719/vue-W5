@@ -17,9 +17,12 @@
       integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
       crossorigin="anonymous"
     />
-    <link href="
+    <link
+      href="
     https://cdn.jsdelivr.net/npm/vue-loading-overlay@6.0.4/dist/css/index.min.css
-    " rel="stylesheet">
+    "
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -138,8 +141,14 @@
                   <td>
                     <div class="input-group input-group-sm">
                       <div class="input-group mb-3">
-                        
-                        <button type="button" class="btn btn-outline-primary" @click="cart.qty--;updateCart(cart,cart.qty)" :disabled="cart.qty == 1"> - </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary"
+                          @click="cart.qty--;updateCart(cart,cart.qty)"
+                          :disabled="cart.qty == 1"
+                        >
+                          -
+                        </button>
                         <input
                           min="1"
                           type="number"
@@ -147,7 +156,13 @@
                           v-model="cart.qty"
                           readonly
                         />
-                        <button type="button" class="btn btn-outline-primary" @click="cart.qty++;updateCart(cart,cart.qty)"> + </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary"
+                          @click="cart.qty++;updateCart(cart,cart.qty)"
+                        >
+                          +
+                        </button>
                         <span class="input-group-text" id="basic-addon2"
                           >{{ cart.product.unit}}</span
                         >
@@ -216,11 +231,11 @@
               <v-field
                 id="tel"
                 name="電話"
-                type="text"
+                type="tel"
                 class="form-control"
                 :class="{ 'is-invalid': errors['電話'] }"
-                placeholder="請輸入手機"
-                :rules="isPhone"
+                placeholder="請輸入電話"
+                :rules="minLength8"
                 v-model="orderData.data.user.tel"
               ></v-field>
               <error-message
@@ -249,15 +264,19 @@
 
             <div class="mb-3">
               <label for="message" class="form-label">留言</label>
-              <textarea
-                id="message"
-                class="form-control"
-                cols="30"
-                rows="10"
-              >{{orderData.data.message}}</textarea>
+              <textarea id="message" class="form-control" cols="30" rows="10">
+{{orderData.data.message}}</textarea
+              >
             </div>
             <div class="text-end">
-              <button type="button" class="btn btn-danger" @click="postOrder" :disabled="carts.carts==''">{{carts.carts==''?'購物車無商品':'送出訂單'}}</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                @click="postOrder"
+                :disabled="carts.carts==''"
+              >
+                {{carts.carts==''?'購物車無商品':'送出訂單'}}
+              </button>
             </div>
           </v-form>
         </div>

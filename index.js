@@ -184,10 +184,19 @@ const app = createApp({
           console.dir(error);
         });
     },
-    isPhone(value) {
-    const phoneNumber = /^(09)[0-9]{8}$/
-    return phoneNumber.test(value) ? true : '需要正確的電話號碼'
-    }
+    // isPhone(value) {
+    // const phoneNumber = /^(09)[0-9]{8}$/
+    // return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+    // },
+    minLength8(value) {
+    // 檢查字串長度是否大於等於8
+      return value.length >= 8?true:'電話須超過8碼';
+    },
+    // isPhoneOrMinLength8(value) {
+    //   // 使用 || 运算符组合两个条件
+    //   if(value.length < 8)return '電話須超過8碼'
+    //   return this.isPhone(value)==true || this.minLength8(value)==true?true:'需要正確的電話號碼';
+    // },
   },
   mounted() {
     this.getAllProducts();
