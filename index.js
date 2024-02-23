@@ -43,14 +43,25 @@ const app = createApp({
       orderData:{
         "data": {
           "user": {
-            "name": "test",
-            "email": "test@gmail.com",
-            "tel": "0912346768",
-            "address": "kaohsiung"
+            "name": "",
+            "email": "",
+            "tel": "",
+            "address": ""
           },
-          "message": "這是留言"
+          "message": ""
         }
       },
+      // orderData:{
+      //   "data": {
+      //     "user": {
+      //       "name": "test",
+      //       "email": "test@gmail.com",
+      //       "tel": "0912346768",
+      //       "address": "kaohsiung"
+      //     },
+      //     "message": "這是留言"
+      //   }
+      // },
     };
   },
   components: {
@@ -59,11 +70,11 @@ const app = createApp({
   methods: {
     postOrder(){
       const data=this.orderData;
-      console.log(data);
+      // console.log(data);
       axios
         .post(`${baseURL}/v2/api/${path}/order`,data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           alert(res.data.message);
           // deleteCarts();
           window.location = '/'
@@ -97,7 +108,7 @@ const app = createApp({
       axios
         .delete(`${baseURL}/v2/api/${path}/cart/${id}`)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.getCart();
           // this.carts = res.data.data;
         })
