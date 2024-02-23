@@ -128,14 +128,16 @@
                   <td>
                     <div class="input-group input-group-sm">
                       <div class="input-group mb-3">
+                        
+                        <button type="button" class="btn btn-outline-primary" @click="cart.qty--;updateCart(cart,cart.qty)" :disabled="cart.qty == 1"> - </button>
                         <input
                           min="1"
                           type="number"
                           class="form-control"
-                          :value="cart.qty"
-                          @change="updateCart(cart,this.$refs.cartQty[index].value)"
-                          ref="cartQty"
+                          v-model="cart.qty"
+                          readonly
                         />
+                        <button type="button" class="btn btn-outline-primary" @click="cart.qty++;updateCart(cart,cart.qty)"> + </button>
                         <span class="input-group-text" id="basic-addon2"
                           >{{ cart.product.unit}}</span
                         >
