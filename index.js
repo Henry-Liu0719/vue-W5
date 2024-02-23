@@ -2,7 +2,7 @@
 const baseURL = "https://vue3-course-api.hexschool.io";
 const path = "gobobofu";
 
-// console.log(VueLoading);
+
 const { createApp } = Vue;
 const userModal = {
   data() {
@@ -37,7 +37,8 @@ const app = createApp({
       carts: {},
       tempProduct: {},
       productModal: null,
-      isLoading: false,
+      isLoading: true,
+      isUpdating: true,
       qty:1,
       orderData:{
         "data": {
@@ -81,21 +82,22 @@ const app = createApp({
       axios
         .get(`${baseURL}/v2/api/${path}/cart`)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.carts = res.data.data;
           this.isLoading = false;
+          this.isUpdating = false;
         })
         .catch((error) => {
           console.dir(error);
         });
     },
     deleteCart(id) {
-      console.log(id);
+      // console.log(id);
+      this.isUpdating = true;
       axios
         .delete(`${baseURL}/v2/api/${path}/cart/${id}`)
         .then((res) => {
           console.log(res);
-          this.isLoading = true;
           this.getCart();
           // this.carts = res.data.data;
         })
@@ -104,11 +106,11 @@ const app = createApp({
         });
     },
     deleteCarts() {
+      this.isLoading = true;
       axios
         .delete(`${baseURL}/v2/api/${path}/carts`)
         .then((res) => {
-          console.log(res);
-          this.isLoading = true;
+          // console.log(res);
           this.getCart();
           alert("購物車已清空");
           // this.carts = res.data.data;
@@ -126,11 +128,11 @@ const app = createApp({
         },
       };
       // console.log(data.data.product_id);
-      this.isLoading = true;
+      this.isUpdating = true;
       axios
         .put(`${baseURL}/v2/api/${path}/cart/${cart.id}`, data)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.getCart();
           // this.carts = res.data.data;
         })
@@ -145,12 +147,13 @@ const app = createApp({
           qty: Number(value),
         },
       };
-      console.log(data);
+      // console.log(data);
+      this.isUpdating = true;
       axios
         .post(`${baseURL}/v2/api/${path}/cart`, data)
         .then((res) => {
           // console.log(res);
-          this.isLoading = true;
+          
           this.$refs.userModal.close();
           this.getCart();
         })
@@ -178,8 +181,10 @@ const app = createApp({
   mounted() {
     this.getAllProducts();
     this.getCart();
+    // console.log(VueLoading);
   },
 });
+app.component("loading", VueLoading.Component);
 app.component("VForm", VeeValidate.Form);
 app.component("VField", VeeValidate.Field);
 app.component("ErrorMessage", VeeValidate.ErrorMessage);

@@ -17,10 +17,18 @@
       integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
       crossorigin="anonymous"
     />
+    <link href="
+    https://cdn.jsdelivr.net/npm/vue-loading-overlay@6.0.4/dist/css/index.min.css
+    " rel="stylesheet">
   </head>
 
   <body>
     <div id="app">
+      <loading :active="isLoading"></loading>
+      <!-- <loading v-model:active="!isLoading"
+                 :can-cancel="true"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"/> -->
       <user-modal
         :product="tempProduct"
         ref="userModal"
@@ -68,7 +76,7 @@
                       class="btn btn-outline-secondary"
                       @click="openModal(product)"
                     >
-                      <i class="fas fa-spinner fa-pulse" v-if="isLoading"></i>
+                      <i class="fas fa-spinner fa-pulse" v-if="isUpdating"></i>
                       查看更多
                     </button>
                     <button
@@ -76,7 +84,7 @@
                       class="btn btn-outline-danger"
                       @click="addToCart(product.id)"
                     >
-                      <i class="fas fa-spinner fa-pulse" v-if="isLoading"></i>
+                      <i class="fas fa-spinner fa-pulse" v-if="isUpdating"></i>
                       加到購物車
                     </button>
                   </div>
@@ -90,6 +98,7 @@
               class="btn btn-outline-danger"
               type="button"
               @click="deleteCarts()"
+              :disabled="isLoading"
             >
               清空購物車
             </button>
@@ -116,8 +125,9 @@
                       type="button"
                       class="btn btn-outline-danger btn-sm"
                       @click="deleteCart(cart.id)"
+                      :disabled="isUpdating"
                     >
-                      <i class="fas fa-spinner fa-pulse" v-if="isLoading"></i>
+                      <i class="fas fa-spinner fa-pulse" v-if="isUpdating"></i>
                       x
                     </button>
                   </td>
