@@ -14,6 +14,7 @@ const userModal = {
   template: `#userProductModal`,
   methods: {
     open() {
+      this.modalQty = 1;  
       this.productModal.show();
     },
     close() {
